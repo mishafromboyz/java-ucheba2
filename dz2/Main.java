@@ -1,7 +1,5 @@
 package dz2;
 
-import java.util.Arrays;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Vector;
 
