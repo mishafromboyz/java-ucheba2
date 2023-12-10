@@ -19,7 +19,7 @@ public class Printer implements Print, Scan, Send
 
     private final String email;
     private final int[] ip;
-    List<String> buffer = new ArrayList<String>();
+    private List<String> buffer = new ArrayList<String>();
 
     public Printer(String email, int[] ip) {
         this.email = email;
@@ -53,17 +53,17 @@ public class Printer implements Print, Scan, Send
         Path path1 = Path.of(path);
         if (!Files.exists(path1))
         {
-            System.out.println("couldnt find file");
+            System.out.println("\ncouldnt find file");
             return;
         }
         try
         {
-            System.out.println("scanning " + path);
+            System.out.println("\nscanning " + path);
             buffer = Files.readAllLines(path1);
         }
         catch (IOException e)
         {
-            System.out.println("file is corrupted");
+            System.out.println("\nfile is corrupted");
         }
     }
 
