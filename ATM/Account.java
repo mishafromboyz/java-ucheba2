@@ -3,7 +3,7 @@ package ATM;
 import java.util.*;
 
 public class Account
-    //TODO: print acc balance
+    //TODO: print acc balance - done
 {
     //private final String login;
     private final String name;
@@ -83,5 +83,10 @@ public class Account
         }
         else
             System.out.println("wrong password");
+    }
+
+    public void printBalance()
+    {
+        System.out.println(balance);
     }
 }
