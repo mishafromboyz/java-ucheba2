@@ -6,6 +6,7 @@ import java.util.AbstractMap;
 public class Main
     //TODO: Main - inf loop
     //      project - clean code
+    //      maybe ATM should have book
 {
     public static void main(String[] args)
     {
@@ -17,34 +18,33 @@ public class Main
          *      \n
          * Есть поддержка разных валют
          */
-
-        Accounts book = new Accounts();
-        book.createAcc("stas", "stas123", "123");
-        book.createAcc("vlad", "vlad123", "123");
-
-        book.logOn("stas123", "123");
-
-        book.sendMoney("stas123", "vlad123", new AbstractMap.SimpleEntry<Currency, Double>(Currency.USD, 10.0));
-        Account acc = book.getAcc("stas123");
-        acc.printBalance();
-        System.out.println("--------------------------------");
-        acc.getHistory();
-
-
         ATM a = new ATM();
+
         a.setBanknotes(Currency.USD, Banknote.thousand, 10);
         a.setBanknotes(Currency.USD, Banknote.hundred, 5);
         a.setBanknotes(Currency.USD, Banknote.fifty, 2);
         a.setBanknotes(Currency.USD ,Banknote.ten, 1);
 
-        acc.printBalance();
-        a.withdraw(1625.0, Currency.USD, acc);
-        acc.printBalance();
-        a.withdraw(1625.0, Currency.RUB, acc);
+        a.book.createAcc("stas", "stas123", "123");
+        a.book.createAcc("vlad", "vlad123", "123");
+
+        a.book.sendMoney("stas123", "vlad123", new AbstractMap.SimpleEntry<Currency, Double>(Currency.USD, 10.0));
+        a.book.logOn("stas123", "123");
+        a.book.sendMoney("stas123", "vlad123", new AbstractMap.SimpleEntry<Currency, Double>(Currency.USD, 10.0));
+        Account acc = a.book.getAcc("stas123");
         acc.printBalance();
 
-        //a.withdraw(900.0, Currency.GBP, acc);
+        a.deposit(1625.0, Currency.USD, acc);
+        a.deposit(1625.0, Currency.RUB, acc);
+        acc.printBalance();
 
-        //acc.getHistory();
+        a.withdraw(500.0, Currency.USD, acc);
+        a.withdraw(500.0, Currency.RUB, acc);
+        acc.printBalance();
+
+        System.out.println(a.getBanknotes());
+
+        System.out.println("--------------------------------");
+        acc.getHistory();
     }
 }

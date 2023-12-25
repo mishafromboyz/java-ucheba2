@@ -12,7 +12,8 @@ public enum Banknote
         this.value = value;
     }
 
-    public Double getValue() {
+    public Double getValue()
+    {
         return value;
     }
 }

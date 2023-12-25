@@ -62,10 +62,8 @@ public class Accounts
 
         Account acc = getAcc(login);
 
-        if(acc == null)
-            return;
-
-        else
+        if(acc != null)
             acc.logOn(password);
+
     }
 }

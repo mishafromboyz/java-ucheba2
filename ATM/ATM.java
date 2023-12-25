@@ -1,16 +1,17 @@
 package ATM;
 
-import java.util.AbstractMap;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class ATM
     //TODO: multiple currencies + withdrawal/deposit on actual account - done
-    //      Deposit banknotes, randomly discard bad banknotes
+    //      Deposit banknotes, randomly discard bad banknotes - done
+    //      Trade currency
 {
-    Account owner = new Account("GOV", "12345");
-    //private EnumMap<Banknote, Integer> banknotes = new EnumMap<>(Banknote.class);
+    private Account owner = new Account("GOV", "12345");
+
+    //TODO: private book, add methods to control book
+    public Accounts book = new Accounts();
+
     private EnumMap<Currency, EnumMap<Banknote, Integer>> banknotes = new EnumMap<>(Currency.class);
 
     public ATM()
@@ -22,13 +23,6 @@ public class ATM
             for(Banknote b : Banknote.values())
                 bnknts.put(b, 0);
         }
-    }
-
-
-    public void setBanknotes(Currency c, Banknote b, Integer num)
-    {
-        EnumMap<Banknote, Integer> bnknts = banknotes.get(c);
-        bnknts.put(b, num);
     }
 
     public void withdraw(Double amount, Currency curr, Account acc)
@@ -53,13 +47,52 @@ public class ATM
                 amount -= note.getKey().getValue();
                 note.setValue(note.getValue()-1);
             }
-            System.out.println(note.getKey() + " has " + note.getValue() + " notes left");
         }
         System.out.println("sda4a: " + amount);
+
         oldAmount -= amount;
-        //System.out.println(oldAmount + "\n-----------------");
         acc.changeBalance("withdraw", curr, oldAmount);
         acc.addTransaction(new Transaction(acc, owner, new AbstractMap.SimpleEntry<Currency, Double>(curr, oldAmount)));
     }
 
+    public void deposit(Double amount, Currency curr, Account acc)
+    {
+        if (amount <= 0)
+            return;
+
+        double oldAmount = amount;
+        EnumMap<Banknote, Integer> bnknts = banknotes.get(curr);
+        double rng;
+
+        for (Map.Entry<Banknote, Integer> note : bnknts.entrySet())
+        {
+            while(amount >= note.getKey().getValue())
+            {
+                rng = Math.random();
+                if(rng<0.5)
+                {
+                    System.out.println("couldnt read bill...");
+                    continue;
+                }
+                amount -= note.getKey().getValue();
+                note.setValue(note.getValue()+1);
+            }
+        }
+        System.out.println("sda4a: " + amount);
+
+        oldAmount -= amount;
+        acc.changeBalance("deposit", curr, oldAmount);
+        acc.addTransaction(new Transaction(acc, owner, new AbstractMap.SimpleEntry<Currency, Double>(curr, oldAmount)));
+    }
+
+    public EnumMap<Currency, EnumMap<Banknote, Integer>> getBanknotes()
+    {
+        return banknotes;
+    }
+
+    public void setBanknotes(Currency c, Banknote b, Integer num)
+    {
+        EnumMap<Banknote, Integer> bnknts = banknotes.get(c);
+        bnknts.put(b, num);
+    }
 }

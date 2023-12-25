@@ -5,23 +5,14 @@ import java.util.*;
 public class Account
     //TODO: print acc balance - done
 {
-    //private final String login;
     private final String name;
     private final String password;
 
-    /*
-    public String getLogin() {
-        return login;
-    }
-    */
-
-    public boolean isLoggedOn() {
-        return loggedOn;
-    }
-
     private boolean loggedOn = false;
+
     private EnumMap<Currency, Double> balance = new EnumMap<>(Currency.class);
     private ArrayList<Transaction> transactionHistory = new ArrayList<>();
+
 
     public Account(String name, String password)
     {
@@ -34,11 +25,6 @@ public class Account
         }
     }
 
-
-
-    public String getName() {
-        return name;
-    }
 
     public void changeBalance(String type, Currency curr, Double amount)
     {
@@ -64,7 +50,6 @@ public class Account
     public void addTransaction(Transaction t)
     {
         transactionHistory.add(t);
-        //System.out.println(t);
     }
 
     public void logOn(String password)
@@ -88,5 +73,13 @@ public class Account
     public void printBalance()
     {
         System.out.println(balance);
+    }
+
+    public boolean isLoggedOn() {
+        return loggedOn;
+    }
+
+    public String getName() {
+        return name;
     }
 }
