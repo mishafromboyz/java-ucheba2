@@ -27,7 +27,7 @@ public class Main
         a.book.createAcc("stas", "stas123", "123");
         acc = a.book.getAcc("stas123");
 
-        System.out.println("print exit to quit");
+        System.out.println("print help for list of commands");
         while(true)
         {
             System.out.println("__________\nenter command:");
@@ -46,7 +46,8 @@ public class Main
                             "\n\twithdraw money" +
                             "\n\tsend money" +
                             "\n\tprint balance" +
-                            "\n\tprint history");
+                            "\n\tprint history" +
+                            "\n\texit");
                     break;
                 }
 
