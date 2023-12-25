@@ -70,6 +70,11 @@ public class Account
             System.out.println("wrong password");
     }
 
+    public void logOff()
+    {
+        loggedOn = false;
+    }
+
     public void printBalance()
     {
         System.out.println(balance);

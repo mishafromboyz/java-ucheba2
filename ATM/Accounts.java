@@ -32,6 +32,12 @@ public class Accounts
         if(sender == null)
             return;
 
+        sendMoney(sender, receiverLogin, amount);
+    }
+
+    public void sendMoney(Account sender, String receiverLogin,
+                          AbstractMap.SimpleEntry<Currency, Double> amount)
+    {
         if(!sender.isLoggedOn())
         {
             System.out.println("401 unauthorized");
